@@ -1,0 +1,22 @@
+{
+    "CIE-1.0": {
+        "MV_FACTOR": 0.5,
+        "MO_WORD_FACTOR": 0.7,
+        "MO_FIELD_FACTOR": 0.9,
+        "MO_COLUMN_FACTOR": 1.0,
+        "PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE": 0.01,
+        "MIN_IOU_THRESHOLD": 0.01,
+        "TARGET_FIELD_REGIONS": [
+            {"json_key": "cie_id", "bbox_target_prop": {"x0_prop": 0.733, "y0_prop": 0.066, "w_prop": 0.203, "h_prop": 0.053}},
+            {"json_key": "municipality", "bbox_target_prop": {"x0_prop": 0.199, "y0_prop": 0.244, "w_prop": 0.236, "h_prop": 0.041}},
+            {"json_key": "surname", "bbox_target_prop": {"x0_prop": 0.334, "y0_prop": 0.312, "w_prop": 0.095, "h_prop": 0.063}},
+            {"json_key": "name", "bbox_target_prop": {"x0_prop": 0.335, "y0_prop": 0.393, "w_prop": 0.112, "h_prop": 0.053}},
+            {"json_key": "place", "bbox_target_prop": {"x0_prop": 0.336, "y0_prop": 0.498, "w_prop": 0.569, "h_prop": 0.041}},
+            {"json_key": "nationality", "bbox_target_prop": {"x0_prop": 0.651, "y0_prop": 0.588, "w_prop": 0.036, "h_prop": 0.041}},
+            {"json_key": "height", "bbox_target_prop": {"x0_prop": 0.484, "y0_prop": 0.592, "w_prop": 0.042, "h_prop": 0.037}},
+            {"json_key": "issuing", "bbox_target_prop": {"x0_prop": 0.334, "y0_prop": 0.662, "w_prop": 0.117, "h_prop": 0.041}},
+            {"json_key": "expiry", "bbox_target_prop": {"x0_prop": 0.651, "y0_prop": 0.662, "w_prop": 0.117, "h_prop": 0.041}},
+            {"json_key": "can", "bbox_target_prop": {"x0_prop": 0.755, "y0_prop": 0.715, "w_prop": 0.174, "h_prop": 0.074}}
+        ]
+    }
+}

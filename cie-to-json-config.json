@@ -52,7 +52,7 @@
                 }
             },
             {
-                "json_key": "haight",
+                "json_key": "height",
                 "bbox_target_prop": {
                     "x0_prop": 0.47708333333333336,
                     "y0_prop": 0.6032786885245902,
@@ -128,7 +128,8 @@
                     "y1_prop": 0.2442622950819672,
                     "w_prop": 0.2197916666666667,
                     "h_prop": 0.03442622950819671
-                }
+                },
+                "text_original": "COMUNE DI / MUNICIPALITY"
             },
             {
                 "json_key": "surname",
@@ -139,7 +140,8 @@
                     "y1_prop": 0.32459016393442625,
                     "w_prop": 0.17916666666666664,
                     "h_prop": 0.032786885245901676
-                }
+                },
+                "text_original": "COGNOME / SURNAME"
             },
             {
                 "json_key": "name",
@@ -150,7 +152,8 @@
                     "y1_prop": 0.40491803278688526,
                     "w_prop": 0.11666666666666664,
                     "h_prop": 0.032786885245901676
-                }
+                },
+                "text_original": "NOME / NAME"
             },
             {
                 "json_key": "place_and_date_of_birth",
@@ -161,7 +164,8 @@
                     "y1_prop": 0.5065573770491804,
                     "w_prop": 0.20833333333333337,
                     "h_prop": 0.032786885245901676
-                }
+                },
+                "text_original": "PLACE AND DATE OF BIRTH"
             },
             {
                 "json_key": "heigh",
@@ -172,7 +176,8 @@
                     "y1_prop": 0.6098360655737705,
                     "w_prop": 0.052083333333333315,
                     "h_prop": 0.03934426229508192
-                }
+                },
+                "text_original": "heigh"
             },
             {
                 "json_key": "sex",
@@ -183,7 +188,8 @@
                     "y1_prop": 0.6049180327868853,
                     "w_prop": 0.033333333333333326,
                     "h_prop": 0.032786885245901676
-                }
+                },
+                "text_original": "sex"
             },
             {
                 "json_key": "nationality",
@@ -194,7 +200,8 @@
                     "y1_prop": 0.6081967213114754,
                     "w_prop": 0.10625000000000007,
                     "h_prop": 0.032786885245901676
-                }
+                },
+                "text_original": "nationality"
             },
             {
                 "json_key": "issuing",
@@ -205,7 +212,8 @@
                     "y1_prop": 0.6852459016393443,
                     "w_prop": 0.17291666666666666,
                     "h_prop": 0.03934426229508203
-                }
+                },
+                "text_original": "EMISSIQNE / ISSUING"
             }
         ]
     },
@@ -327,7 +335,8 @@
                     "y1_prop": 0.266839378238342,
                     "w_prop": 0.12333333333333335,
                     "h_prop": 0.031088082901554404
-                }
+                },
+                "text_original": "municipality"
             },
             {
                 "json_key": "surname",
@@ -338,7 +347,8 @@
                     "y1_prop": 0.344559585492228,
                     "w_prop": 0.08333333333333326,
                     "h_prop": 0.03626943005181349
-                }
+                },
+                "text_original": "SuRNAME"
             },
             {
                 "json_key": "luogo",
@@ -349,7 +359,8 @@
                     "y1_prop": 0.5,
                     "w_prop": 0.06,
                     "h_prop": 0.03626943005181349
-                }
+                },
+                "text_original": "Lvoco"
             },
             {
                 "json_key": "cittadinanza",
@@ -360,7 +371,8 @@
                     "y1_prop": 0.5880829015544041,
                     "w_prop": 0.1233333333333334,
                     "h_prop": 0.031088082901554404
-                }
+                },
+                "text_original": "cittadinanza"
             },
             {
                 "json_key": "height",
@@ -371,10 +383,11 @@
                     "y1_prop": 0.6191709844559585,
                     "w_prop": 0.05333333333333329,
                     "h_prop": 0.03626943005181349
-                }
+                },
+                "text_original": "height"
             },
             {
-                "json_key": "scadenzf_expir_y",
+                "json_key": "expiry",
                 "bbox_target_prop": {
                     "x0_prop": 0.6616666666666666,
                     "y0_prop": 0.6606217616580311,
@@ -382,7 +395,8 @@
                     "y1_prop": 0.6968911917098446,
                     "w_prop": 0.16000000000000003,
                     "h_prop": 0.03626943005181349
-                }
+                },
+                "text_original": "scadenza / expiry"
             }
         ]
     }

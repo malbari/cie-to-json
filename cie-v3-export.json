@@ -174,7 +174,7 @@
             "value": "name"
         },
         {
-            "text": "PLACE AID DATE OF BIRTH",
+            "text": "PLACE AND DATE OF BIRTH",
             "box_props": {
                 "x0_prop": 0.328125,
                 "y0_prop": 0.4737704918032787,
@@ -270,7 +270,7 @@
             "value": "heigh"
         },
         {
-            "text": "SEX",
+            "text": "sex",
             "box_props": {
                 "x0_prop": 0.3260416666666667,
                 "y0_prop": 0.5721311475409836,
@@ -286,7 +286,7 @@
             "value": "sex"
         },
         {
-            "text": "NATIONALITY",
+            "text": "nationality",
             "box_props": {
                 "x0_prop": 0.6510416666666666,
                 "y0_prop": 0.5754098360655737,
@@ -315,7 +315,7 @@
                 21
             ],
             "detect": "f",
-            "value": "haight"
+            "value": "height"
         },
         {
             "text": "ITA",

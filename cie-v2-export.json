@@ -77,7 +77,7 @@
             "value": ""
         },
         {
-            "text": "municidality",
+            "text": "municipality",
             "box_props": {
                 "x0_prop": 0.295,
                 "y0_prop": 0.23575129533678757,
@@ -205,7 +205,7 @@
             "value": ""
         },
         {
-            "text": "cittadinanZa",
+            "text": "cittadinanza",
             "box_props": {
                 "x0_prop": 0.6616666666666666,
                 "y0_prop": 0.5569948186528497,
@@ -221,7 +221,7 @@
             "value": "cittadinanza"
         },
         {
-            "text": "Heigk",
+            "text": "height",
             "box_props": {
                 "x0_prop": 0.48833333333333334,
                 "y0_prop": 0.582901554404145,
@@ -253,7 +253,7 @@
             "value": "height"
         },
         {
-            "text": "SCADENZf EXPIR Y",
+            "text": "scadenza / expiry",
             "box_props": {
                 "x0_prop": 0.6616666666666666,
                 "y0_prop": 0.6606217616580311,
@@ -267,7 +267,7 @@
                 18
             ],
             "detect": "t",
-            "value": ""
+            "value": "expiry"
         },
         {
             "text": "30.05, '2012",

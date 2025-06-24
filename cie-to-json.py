@@ -47,7 +47,7 @@ def convert_bbox_to_proportional_xywh(bbox_raw, img_width_px, img_height_px):
     x0_prop = x0_px / img_width_px
     y0_prop = y0_px / img_height_px
     width_prop = width_px / img_width_px
-    height_prop = height_px / img_height_px
+    height_prop = height_px / img_height_px # Correzione: da 'h_prop' a 'height_px'
 
     x1_prop = x1_px / img_width_px
     y1_prop = y1_px / img_height_px
@@ -379,7 +379,6 @@ if __name__ == "__main__":
                 box_props['y1_prop'] = round(box_props['y0_prop'] + box_props['h_prop'], 3)
 
             # TARGET_FIELD_REGIONS (se 'value' è valorizzato E 'detect' è 'f')
-            # La condizione è stata modificata qui per includere 'detect' == 'f'
             if box.get('value') and box['value'].strip() != "" and box.get('detect', '').lower() == 'f':
                 # Usa .copy() per assicurarsi che i box_props siano un nuovo oggetto nel JSON
                 new_target_field_regions.append({
@@ -389,7 +388,6 @@ if __name__ == "__main__":
                 debug_print(f"  Aggiunto a TARGET_FIELD_REGIONS: '{box.get('value')}'")
 
             # TARGET_DETECT_REGIONS (se 'detect' è 't')
-            # Usa .lower() per rendere il confronto case-insensitive
             if box.get('detect', '').lower() == 't':
                 # Determina la json_key: usa 'value' se presente e valorizzato, altrimenti 'text'
                 key_for_detect_region = box.get('value')
@@ -397,11 +395,13 @@ if __name__ == "__main__":
                     key_for_detect_region = box['text']
 
                 # Usa .copy() per assicurarsi che i box_props siano un nuovo oggetto nel JSON
-                new_target_detect_regions.append({
+                detect_region_entry = {
                     "json_key": clean_json_key(key_for_detect_region),
-                    "bbox_target_prop": box_props.copy() # Usa una copia
-                })
-                debug_print(f"  Aggiunto a TARGET_DETECT_REGIONS: '{key_for_detect_region}'")
+                    "bbox_target_prop": box_props.copy(), # Usa una copia
+                    "text_original": box['text'] # Aggiunto il testo originale qui
+                }
+                new_target_detect_regions.append(detect_region_entry)
+                debug_print(f"  Aggiunto a TARGET_DETECT_REGIONS: '{key_for_detect_region}' (Testo originale: '{box['text']}')")
 
 
         # Costruisci la nuova configurazione

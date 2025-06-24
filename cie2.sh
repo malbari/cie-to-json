@@ -1,5 +1,5 @@
-wget -c -q https://img.corrierecomunicazioni.it/wp-content/uploads/2020/10/Italian_electronic_ID_card.jpg
+wget -c -q http://www.comune.torino.it/anagrafe/img/cie.png
 
-mv "Italian_electronic_ID_card.jpg" cie2.jpg
+mv "cie.png" cie2.png
 
-python cie-to-json.py ./cie2.jpg
+python cie-to-json.py ./cie2.png --config_name "CIE-2.0"

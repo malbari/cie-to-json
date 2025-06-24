@@ -5,14 +5,27 @@ import argparse
 import numpy as np
 import json
 import math
+import re # Importato per la pulizia delle chiavi JSON
 
 # Variabile globale per il debug mode
 DEBUG_MODE = False
+
+# Default filename for configuration
+DEFAULT_CONFIG_FILE = "cie-to-json-config.json"
 
 def debug_print(*args, **kwargs):
     """Stampa messaggi solo se DEBUG_MODE è True."""
     if DEBUG_MODE:
         print(*args, **kwargs)
+
+def clean_json_key(text):
+    """Pulisce una stringa per usarla come chiave JSON (minuscolo, underscore per spazi, rimuove speciali)."""
+    if not text:
+        return ""
+    # Sostituisce gli spazi con underscore, converte in minuscolo e rimuove caratteri non alfanumerici
+    cleaned_text = re.sub(r'\s+', '_', text).lower()
+    cleaned_text = re.sub(r'[^a-z0-9_]', '', cleaned_text)
+    return cleaned_text
 
 def convert_bbox_to_proportional_xywh(bbox_raw, img_width_px, img_height_px):
     """
@@ -88,17 +101,17 @@ def print_raw_proportional_boxes(detections):
         debug_print(f"[{i}] 📍BBOX: x0={d['x0_prop']:.4f}, y0={d['y0_prop']:.4f}, w={d['w_prop']:.4f}, h={d['h_prop']:.4f} — → '{d['text']}' (conf={d['conf']:.2f})")
 
 
-def merge_adjacent_proportional_boxes(detections, config):
+def merge_adjacent_proportional_boxes(detections, merge_config):
     """
     Fonde i bounding box adiacenti in "linee" o "campi" logici.
     Opera esclusivamente su coordinate proporzionali.
-    Accetta il dizionario di configurazione.
+    Accetta il dizionario di configurazione del merge.
     """
-    MV_FACTOR = config['MV_FACTOR']
-    MO_WORD_FACTOR = config['MO_WORD_FACTOR']
-    MO_FIELD_FACTOR = config['MO_FIELD_FACTOR']
-    MO_COLUMN_FACTOR = config['MO_COLUMN_FACTOR']
-    PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE = config['PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE']
+    MV_FACTOR = merge_config['MV_FACTOR']
+    MO_WORD_FACTOR = merge_config['MO_WORD_FACTOR']
+    MO_FIELD_FACTOR = merge_config['MO_FIELD_FACTOR']
+    MO_COLUMN_FACTOR = merge_config['MO_COLUMN_FACTOR']
+    PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE = merge_config['PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE']
 
     boxes = []
     for i, d in enumerate(detections):
@@ -219,13 +232,11 @@ def calculate_iou(box1_props, box2_props):
     Calcola l'Intersection over Union (IoU) tra due bounding box proporzionali.
     Box props devono avere 'x0_prop', 'y0_prop', 'x1_prop', 'y1_prop'.
     """
-    # Determinare le coordinate dell'intersezione
     x_overlap = max(0, min(box1_props['x1_prop'], box2_props['x1_prop']) - max(box1_props['x0_prop'], box2_props['x0_prop']))
     y_overlap = max(0, min(box1_props['y1_prop'], box2_props['y1_prop']) - max(box1_props['y0_prop'], box2_props['y0_prop']))
 
     intersection_area = x_overlap * y_overlap
 
-    # Calcolare l'area di ciascun box
     box1_area = (box1_props['x1_prop'] - box1_props['x0_prop']) * (box1_props['y1_prop'] - box1_props['y0_prop'])
     box2_area = (box2_props['x1_prop'] - box2_props['x0_prop']) * (box2_props['y1_prop'] - box2_props['y0_prop'])
 
@@ -245,17 +256,16 @@ def calculate_center_distance(box1_props, box2_props):
     center2_y = (box2_props['y0_prop'] + box2_props['y1_prop']) / 2
     return math.sqrt((center1_x - center2_x)**2 + (center1_y - center2_y)**2)
 
-def extract_fields_by_position(processed_boxes, target_regions, config):
+def extract_fields_by_position(processed_boxes, target_regions, extract_config):
     """
     Estrae i campi dalle regioni target usando il matching posizionale.
     Accetta il dizionario di configurazione per MIN_IOU_THRESHOLD.
     """
     extracted_data = {}
     
-    # Copia dei box processati per poter rimuovere quelli già usati
     available_boxes = list(processed_boxes)
     
-    MIN_IOU_THRESHOLD = config.get('MIN_IOU_THRESHOLD', 0.01) # Default 0.01 se non specificato
+    MIN_IOU_THRESHOLD = extract_config.get('MIN_IOU_THRESHOLD', 0.01) # Default 0.01 se non specificato
 
     for target_region in target_regions:
         json_key = target_region['json_key']
@@ -289,7 +299,6 @@ def extract_fields_by_position(processed_boxes, target_regions, config):
             extracted_data[json_key] = best_match_box['text']
             debug_print(f"[Extraction] Matched '{json_key}' with '{best_match_box['text']}' (IoU: {best_iou:.4f}, Dist: {min_distance:.4f})")
             
-            # Rimuovi il box utilizzato dalla lista per evitare duplicati
             for idx, item in enumerate(available_boxes):
                 if item is not None and item['text'] == best_match_box['text'] and \
                    item['box_props']['x0_prop'] == best_match_box['box_props']['x0_prop'] and \
@@ -305,19 +314,202 @@ def extract_fields_by_position(processed_boxes, target_regions, config):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Estrae testo e fonde i box OCR da immagini, operando solo con coordinate proporzionali. Esegue estrazione posizionale dei campi.")
-    parser.add_argument("image_path", help="Percorso dell'immagine da processare.")
+    parser.add_argument("image_path", nargs='?', help="Percorso dell'immagine da processare (obbligatorio in modalità normale, facoltativo per --update_config).")
     parser.add_argument("--gpu", action="store_true", help="Usa la GPU per EasyOCR (se disponibile).")
     parser.add_argument("--debug", action="store_true", help="Abilita la stampa di messaggi di debug dettagliati.")
-    parser.add_argument("--out", help="Specifica un file di output per il JSON. Se omesso, stampa su stdout.")
-    parser.add_argument("--config_file", default="cie-to-json-config.json", help="Percorso del file di configurazione JSON. Default: cie-to-json-config.json")
-    parser.add_argument("--config_name", default="CIE-1.0", help="Nome della configurazione da usare dal file JSON (es. 'CIE-1.0'). Default: 'CIE-1.0'")
+    parser.add_argument("--out", help="Specifica un file di output per il JSON (modalità normale).")
+    parser.add_argument("--analyze", help="Se specificato, crea un file JSON con tutti i box mergiati per l'analisi e si ferma.")
+    parser.add_argument("--update_config", help="Se specificato, aggiorna il file di configurazione con i dati del JSON di analisi fornito.")
+
+
+    # Parametri di merge con default e override da riga di comando
+    parser.add_argument("--mvf", type=float, default=0.5, help="MV_FACTOR (default: 0.5)")
+    parser.add_argument("--mowf", type=float, default=0.7, help="MO_WORD_FACTOR (default: 0.7)")
+    parser.add_argument("--moff", type=float, default=0.75, help="MO_FIELD_FACTOR (default: 0.75)")
+    parser.add_argument("--mocf", type=float, default=0.75, help="MO_COLUMN_FACTOR (default: 0.75)")
+    parser.add_argument("--pvo_tol", type=float, default=0.01, help="PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE (default: 0.01)")
+    parser.add_argument("--min_iou_thresh", type=float, default=0.01, help="MIN_IOU_THRESHOLD for extraction (default: 0.01)")
+
+    # Argomenti per il caricamento della configurazione da file (solo per modalità normale)
+    parser.add_argument("--config_file", default=DEFAULT_CONFIG_FILE, help=f"Percorso del file di configurazione JSON. Default: {DEFAULT_CONFIG_FILE} (solo per modalità normale).")
+    parser.add_argument("--config_name", default="CIE-1.0", help="Nome della configurazione da usare dal file JSON (es. 'CIE-1.0'). Default: 'CIE-1.0' (solo per modalità normale).")
 
 
     args = parser.parse_args()
 
     DEBUG_MODE = args.debug
 
-    # Carica il file di configurazione
+    # --- Modalità UPDATE_CONFIG ---
+    if args.update_config:
+        debug_print(f"\n=== Modalità UPDATE_CONFIG abilitata. Caricamento file: {args.update_config} ===")
+        try:
+            with open(args.update_config, 'r', encoding='utf-8') as f:
+                analysis_data = json.load(f)
+        except FileNotFoundError:
+            print(f"Errore: File di analisi '{args.update_config}' non trovato.")
+            sys.exit(1)
+        except json.JSONDecodeError:
+            print(f"Errore: Il file '{args.update_config}' non è un JSON valido.")
+            sys.exit(1)
+
+        # Determina il nome della configurazione dal campo 'name' nel file di analisi, altrimenti dal nome del file
+        config_name_to_update = analysis_data.get('name', args.update_config.split('/')[-1].replace('.json', ''))
+        debug_print(f"Nome configurazione da aggiornare: '{config_name_to_update}'")
+
+        image_width_px = analysis_data.get('image_width_px')
+        image_height_px = analysis_data.get('image_height_px')
+        merge_params_from_analysis = analysis_data.get('merge_params', {})
+        merged_boxes_from_analysis = analysis_data.get('merged_boxes', [])
+
+        if image_width_px is None or image_height_px is None:
+            print("Errore: Il file di analisi non contiene 'image_width_px' o 'image_height_px'.")
+            sys.exit(1)
+
+        new_target_field_regions = []
+        new_target_detect_regions = []
+
+        # Popola TARGET_FIELD_REGIONS e TARGET_DETECT_REGIONS
+        for box in merged_boxes_from_analysis:
+            box_props = box['box_props']
+            
+            # Ensure x1_prop and y1_prop are present (they should be from analyze output)
+            if 'x1_prop' not in box_props:
+                box_props['x1_prop'] = round(box_props['x0_prop'] + box_props['w_prop'], 3)
+            if 'y1_prop' not in box_props:
+                box_props['y1_prop'] = round(box_props['y0_prop'] + box_props['h_prop'], 3)
+
+            # TARGET_FIELD_REGIONS (se 'value' è valorizzato E 'detect' è 'f')
+            # La condizione è stata modificata qui per includere 'detect' == 'f'
+            if box.get('value') and box['value'].strip() != "" and box.get('detect', '').lower() == 'f':
+                # Usa .copy() per assicurarsi che i box_props siano un nuovo oggetto nel JSON
+                new_target_field_regions.append({
+                    "json_key": clean_json_key(box['value']),
+                    "bbox_target_prop": box_props.copy() # Usa una copia
+                })
+                debug_print(f"  Aggiunto a TARGET_FIELD_REGIONS: '{box.get('value')}'")
+
+            # TARGET_DETECT_REGIONS (se 'detect' è 't')
+            # Usa .lower() per rendere il confronto case-insensitive
+            if box.get('detect', '').lower() == 't':
+                # Determina la json_key: usa 'value' se presente e valorizzato, altrimenti 'text'
+                key_for_detect_region = box.get('value')
+                if not key_for_detect_region or key_for_detect_region.strip() == "":
+                    key_for_detect_region = box['text']
+
+                # Usa .copy() per assicurarsi che i box_props siano un nuovo oggetto nel JSON
+                new_target_detect_regions.append({
+                    "json_key": clean_json_key(key_for_detect_region),
+                    "bbox_target_prop": box_props.copy() # Usa una copia
+                })
+                debug_print(f"  Aggiunto a TARGET_DETECT_REGIONS: '{key_for_detect_region}'")
+
+
+        # Costruisci la nuova configurazione
+        new_config_entry = {
+            "MV_FACTOR": merge_params_from_analysis.get('MV_FACTOR', args.mvf),
+            "MO_WORD_FACTOR": merge_params_from_analysis.get('MO_WORD_FACTOR', args.mowf),
+            "MO_FIELD_FACTOR": merge_params_from_analysis.get('MO_FIELD_FACTOR', args.moff),
+            "MO_COLUMN_FACTOR": merge_params_from_analysis.get('MO_COLUMN_FACTOR', args.mocf),
+            "PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE": merge_params_from_analysis.get('PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE', args.pvo_tol),
+            "MIN_IOU_THRESHOLD": args.min_iou_thresh, # Usa il default CLI o il valore sovrascritto
+            "TARGET_FIELD_REGIONS": new_target_field_regions,
+            "TARGET_DETECT_REGIONS": new_target_detect_regions # Nuova sezione
+        }
+
+        # Carica il file di configurazione esistente
+        all_configs = {}
+        try:
+            with open(DEFAULT_CONFIG_FILE, 'r', encoding='utf-8') as f:
+                all_configs = json.load(f)
+        except FileNotFoundError:
+            debug_print(f"File di configurazione '{DEFAULT_CONFIG_FILE}' non trovato. Ne verrà creato uno nuovo.")
+        except json.JSONDecodeError:
+            print(f"Avviso: Il file '{DEFAULT_CONFIG_FILE}' non è un JSON valido o è vuoto. Verrà sovrascritto.")
+            all_configs = {} # Inizializza come vuoto se non valido
+
+        # Aggiungi o aggiorna la nuova configurazione
+        all_configs[config_name_to_update] = new_config_entry
+
+        # Salva il file di configurazione aggiornato
+        try:
+            with open(DEFAULT_CONFIG_FILE, 'w', encoding='utf-8') as f:
+                json.dump(all_configs, f, indent=4, ensure_ascii=False)
+            print(f"Configurazione '{config_name_to_update}' aggiornata con successo in '{DEFAULT_CONFIG_FILE}'.")
+        except Exception as e:
+            print(f"Errore durante la scrittura del file di configurazione: {e}", file=sys.stderr)
+        
+        sys.exit(0) # Termina lo script
+
+    # --- Validazione dell'immagine solo per le modalità normali (non --update_config) ---
+    if args.image_path is None:
+        parser.error("L'argomento 'image_path' è obbligatorio in modalità normale (senza --analyze o --update_config).")
+
+    # Carica l'immagine originale una volta
+    original_image_full_res = cv2.imread(args.image_path)
+    if original_image_full_res is None:
+        print(f"Errore: Impossibile caricare l'immagine da {args.image_path}")
+        sys.exit(1)
+
+    # Inizializza EasyOCR Reader una volta
+    ocr_reader = easyocr.Reader(['it', 'en'], gpu=args.gpu)
+
+    # 1. Rilevamento dei box grezzi e conversione immediata in proporzioni
+    detections_proportional, img_width_px, img_height_px = detect_text_and_proportional_coords(
+        original_image_full_res, reader_obj=ocr_reader, min_confidence=0.3
+    )
+    debug_print(f"Dimensioni immagine originale: W={img_width_px}px, H={img_height_px}px")
+    print_raw_proportional_boxes(detections_proportional)
+
+    # Prepara la configurazione per il merge (da CLI o default)
+    merge_config = {
+        'MV_FACTOR': args.mvf,
+        'MO_WORD_FACTOR': args.mowf,
+        'MO_FIELD_FACTOR': args.moff,
+        'MO_COLUMN_FACTOR': args.mocf,
+        'PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE': args.pvo_tol
+    }
+    
+    # 2. Fusione dei box adiacenti in "linee" o "campi" logici (lavora su proporzioni)
+    processed_boxes = merge_adjacent_proportional_boxes(detections_proportional, merge_config)
+
+    # --- Modalità ANALYZE ---
+    if args.analyze:
+        debug_print("\n=== Modalità ANALYZE abilitata. Creazione file JSON di analisi. ===")
+        analysis_output_data = {
+            "name": "analysis_output", # Default name for analysis output, can be changed by user for --update_config
+            "image_width_px": img_width_px,
+            "image_height_px": img_height_px,
+            "merge_params": merge_config, # Aggiunto qui i parametri di merge
+            "merged_boxes": []
+        }
+        
+        # Ordina per una visualizzazione più leggibile
+        sorted_processed_boxes_for_output = sorted(processed_boxes, key=lambda d: (d['box_props']['y0_prop'], d['box_props']['x0_prop']))
+        
+        for i, item in enumerate(sorted_processed_boxes_for_output):
+            box_data = {
+                "text": item['text'],
+                "box_props": item['box_props'],
+                "original_indices": item['original_indices'],
+                "detect": "f", # Cambiato a minuscolo
+                "value": ""
+            }
+            analysis_output_data["merged_boxes"].append(box_data)
+
+        try:
+            with open(args.analyze, 'w', encoding='utf-8') as f:
+                json.dump(analysis_output_data, f, indent=4, ensure_ascii=False)
+            print(f"File di analisi JSON scritto su: {args.analyze}")
+        except Exception as e:
+            print(f"Errore durante la scrittura del file di analisi: {e}", file=sys.stderr)
+        sys.exit(0) # Termina lo script dopo aver creato il file di analisi
+    
+    # --- Modalità NORMALE (prosegue con l'estrazione) ---
+
+    debug_print("\n=== BOX MERGED (Proporzionali) - Modalità Normale ===")
+    # (La stampa di debug dei box mergiati è stata rimossa qui, dato che le informazioni complete sono nel file di analisi se `--analyze` è usato)
+    
+    # Carica la configurazione da file (solo se non in modalità analyze o update_config)
     try:
         with open(args.config_file, 'r', encoding='utf-8') as f:
             all_configs = json.load(f)
@@ -336,57 +528,21 @@ if __name__ == "__main__":
     current_config = all_configs[args.config_name]
     debug_print(f"Caricata configurazione '{args.config_name}'.")
 
-    # Estrai le configurazioni specifiche
-    config_merge_params = {
-        'MV_FACTOR': current_config['MV_FACTOR'],
-        'MO_WORD_FACTOR': current_config['MO_WORD_FACTOR'],
-        'MO_FIELD_FACTOR': current_config['MO_FIELD_FACTOR'],
-        'MO_COLUMN_FACTOR': current_config['MO_COLUMN_FACTOR'],
-        'PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE': current_config['PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE']
-    }
     config_target_regions = current_config['TARGET_FIELD_REGIONS']
 
-    # Pre-calcola x1_prop e y1_prop per le regioni target per comodità nei calcoli IoU
+    # Pre-calcola x1_prop e y1_prop per le regioni target
     for region in config_target_regions:
         target_bbox = region['bbox_target_prop']
         target_bbox['x1_prop'] = round(target_bbox['x0_prop'] + target_bbox['w_prop'], 3)
         target_bbox['y1_prop'] = round(target_bbox['y0_prop'] + target_bbox['h_prop'], 3)
     
-    # Aggiungi MIN_IOU_THRESHOLD alla configurazione specifica per l'estrazione posizionale
-    # Questo valore può essere messo nel JSON se si vuole configurarlo per tipo di CIE.
-    config_extract_params = {
-        'MIN_IOU_THRESHOLD': current_config.get('MIN_IOU_THRESHOLD', 0.01)
+    # Prepara la configurazione per l'estrazione (da CLI o default del JSON se presente)
+    extract_config = {
+        'MIN_IOU_THRESHOLD': args.min_iou_thresh # Usa il valore dalla CLI (default o override)
     }
 
-    # Carica l'immagine originale una volta
-    original_image_full_res = cv2.imread(args.image_path)
-    if original_image_full_res is None:
-        print(f"Errore: Impossibile caricare l'immagine da {args.image_path}")
-        sys.exit(1)
-
-    # Inizializza EasyOCR Reader una volta
-    ocr_reader = easyocr.Reader(['it', 'en'], gpu=args.gpu)
-
-    # 1. Rilevamento dei box grezzi e conversione immediata in proporzioni
-    detections_proportional, img_width_px, img_height_px = detect_text_and_proportional_coords(
-        original_image_full_res, reader_obj=ocr_reader, min_confidence=0.3
-    )
-    debug_print(f"Dimensioni immagine originale: W={img_width_px}px, H={img_height_px}px")
-    print_raw_proportional_boxes(detections_proportional)
-
-    # 2. Fusione dei box adiacenti in "linee" o "campi" logici (lavora su proporzioni)
-    processed_boxes = merge_adjacent_proportional_boxes(detections_proportional, config_merge_params)
-
-    debug_print("\n=== BOX MERGED (Proporzionali) ===")
-    sorted_processed_boxes = sorted(processed_boxes, key=lambda d: (d['box_props']['y0_prop'], d['box_props']['x0_prop']))
-    for i, item in enumerate(sorted_processed_boxes):
-        text = item['text']
-        box_props = item['box_props']
-        original_indices = item['original_indices']
-        debug_print(f"[{i}] 📍BBOX (prop): x0={box_props['x0_prop']:.4f}, y0={box_props['y0_prop']:.4f}, w={box_props['w_prop']:.4f}, h={box_props['h_prop']:.4f} — → '{text}' (Merged from raw indices: {original_indices})")
-
     # 3. Estrazione dei campi tramite matching posizionale
-    extracted_data = extract_fields_by_position(processed_boxes, config_target_regions, config_extract_params)
+    extracted_data = extract_fields_by_position(processed_boxes, config_target_regions, extract_config)
 
     if args.out:
         with open(args.out, 'w', encoding='utf-8') as f:

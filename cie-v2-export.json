@@ -1,0 +1,322 @@
+{
+    "name": "CIE-2.0",
+    "image_width_px": 600,
+    "image_height_px": 386,
+    "merge_params": {
+        "MV_FACTOR": 0.5,
+        "MO_WORD_FACTOR": 0.7,
+        "MO_FIELD_FACTOR": 0.75,
+        "MO_COLUMN_FACTOR": 0.75,
+        "PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE": 0.01
+    },
+    "merged_boxes": [
+        {
+            "text": "REPUBBLICA ITALIANA",
+            "box_props": {
+                "x0_prop": 0.19666666666666666,
+                "y0_prop": 0.04922279792746114,
+                "x1_prop": 0.6733333333333333,
+                "y1_prop": 0.12953367875647667,
+                "w_prop": 0.4766666666666667,
+                "h_prop": 0.08031088082901552
+            },
+            "original_indices": [
+                1
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "CAOOOOOAA",
+            "box_props": {
+                "x0_prop": 0.74,
+                "y0_prop": 0.06217616580310881,
+                "x1_prop": 0.9566666666666667,
+                "y1_prop": 0.12953367875647667,
+                "w_prop": 0.21666666666666667,
+                "h_prop": 0.06735751295336787
+            },
+            "original_indices": [
+                2
+            ],
+            "detect": "f",
+            "value": "cie_id"
+        },
+        {
+            "text": "0 MINISTERO DELLINTERNO",
+            "box_props": {
+                "x0_prop": 0.08666666666666667,
+                "y0_prop": 0.07772020725388601,
+                "x1_prop": 0.6233333333333333,
+                "y1_prop": 0.17098445595854922,
+                "w_prop": 0.5366666666666666,
+                "h_prop": 0.09326424870466321
+            },
+            "original_indices": [
+                0,
+                3
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "CARTA DI IDENTITÀ IDENTITY CARD",
+            "box_props": {
+                "x0_prop": 0.19666666666666666,
+                "y0_prop": 0.17098445595854922,
+                "x1_prop": 0.6483333333333333,
+                "y1_prop": 0.23316062176165803,
+                "w_prop": 0.45166666666666666,
+                "h_prop": 0.06217616580310881
+            },
+            "original_indices": [
+                4,
+                5
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "municidality",
+            "box_props": {
+                "x0_prop": 0.295,
+                "y0_prop": 0.23575129533678757,
+                "x1_prop": 0.41833333333333333,
+                "y1_prop": 0.266839378238342,
+                "w_prop": 0.12333333333333335,
+                "h_prop": 0.031088082901554404
+            },
+            "original_indices": [
+                6
+            ],
+            "detect": "t",
+            "value": "municipality"
+        },
+        {
+            "text": "SERENELLA MARITTIMA",
+            "box_props": {
+                "x0_prop": 0.19833333333333333,
+                "y0_prop": 0.25647668393782386,
+                "x1_prop": 0.43833333333333335,
+                "y1_prop": 0.2979274611398964,
+                "w_prop": 0.24000000000000002,
+                "h_prop": 0.04145077720207252
+            },
+            "original_indices": [
+                7
+            ],
+            "detect": "f",
+            "value": "municipality"
+        },
+        {
+            "text": "SuRNAME",
+            "box_props": {
+                "x0_prop": 0.43833333333333335,
+                "y0_prop": 0.3082901554404145,
+                "x1_prop": 0.5216666666666666,
+                "y1_prop": 0.344559585492228,
+                "w_prop": 0.08333333333333326,
+                "h_prop": 0.03626943005181349
+            },
+            "original_indices": [
+                8
+            ],
+            "detect": "t",
+            "value": "surname"
+        },
+        {
+            "text": "Ross",
+            "box_props": {
+                "x0_prop": 0.3383333333333333,
+                "y0_prop": 0.34974093264248707,
+                "x1_prop": 0.395,
+                "y1_prop": 0.3860103626943005,
+                "w_prop": 0.0566666666666667,
+                "h_prop": 0.036269430051813434
+            },
+            "original_indices": [
+                9
+            ],
+            "detect": "f",
+            "value": "surname"
+        },
+        {
+            "text": "BIANCA",
+            "box_props": {
+                "x0_prop": 0.3383333333333333,
+                "y0_prop": 0.4274611398963731,
+                "x1_prop": 0.41833333333333333,
+                "y1_prop": 0.4637305699481865,
+                "w_prop": 0.08000000000000002,
+                "h_prop": 0.036269430051813434
+            },
+            "original_indices": [
+                10
+            ],
+            "detect": "f",
+            "value": "name"
+        },
+        {
+            "text": "Lvoco",
+            "box_props": {
+                "x0_prop": 0.3416666666666667,
+                "y0_prop": 0.4637305699481865,
+                "x1_prop": 0.40166666666666667,
+                "y1_prop": 0.5,
+                "w_prop": 0.06,
+                "h_prop": 0.03626943005181349
+            },
+            "original_indices": [
+                11
+            ],
+            "detect": "t",
+            "value": "luogo"
+        },
+        {
+            "text": "PINO SULLA SPONDA DEL Lago Maggiore (Va) 30.12.1964",
+            "box_props": {
+                "x0_prop": 0.3383333333333333,
+                "y0_prop": 0.5051813471502591,
+                "x1_prop": 0.915,
+                "y1_prop": 0.5569948186528497,
+                "w_prop": 0.5766666666666667,
+                "h_prop": 0.051813471502590636
+            },
+            "original_indices": [
+                12
+            ],
+            "detect": "f",
+            "value": "place_and_date_of_birth"
+        },
+        {
+            "text": "tatual",
+            "box_props": {
+                "x0_prop": 0.49833333333333335,
+                "y0_prop": 0.5569948186528497,
+                "x1_prop": 0.555,
+                "y1_prop": 0.5880829015544041,
+                "w_prop": 0.0566666666666667,
+                "h_prop": 0.031088082901554404
+            },
+            "original_indices": [
+                13
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "cittadinanZa",
+            "box_props": {
+                "x0_prop": 0.6616666666666666,
+                "y0_prop": 0.5569948186528497,
+                "x1_prop": 0.785,
+                "y1_prop": 0.5880829015544041,
+                "w_prop": 0.1233333333333334,
+                "h_prop": 0.031088082901554404
+            },
+            "original_indices": [
+                14
+            ],
+            "detect": "t",
+            "value": "cittadinanza"
+        },
+        {
+            "text": "Heigk",
+            "box_props": {
+                "x0_prop": 0.48833333333333334,
+                "y0_prop": 0.582901554404145,
+                "x1_prop": 0.5416666666666666,
+                "y1_prop": 0.6191709844559585,
+                "w_prop": 0.05333333333333329,
+                "h_prop": 0.03626943005181349
+            },
+            "original_indices": [
+                15
+            ],
+            "detect": "t",
+            "value": "height"
+        },
+        {
+            "text": "180",
+            "box_props": {
+                "x0_prop": 0.48833333333333334,
+                "y0_prop": 0.6139896373056994,
+                "x1_prop": 0.5316666666666666,
+                "y1_prop": 0.6450777202072538,
+                "w_prop": 0.04333333333333328,
+                "h_prop": 0.031088082901554404
+            },
+            "original_indices": [
+                16
+            ],
+            "detect": "f",
+            "value": "height"
+        },
+        {
+            "text": "SCADENZf EXPIR Y",
+            "box_props": {
+                "x0_prop": 0.6616666666666666,
+                "y0_prop": 0.6606217616580311,
+                "x1_prop": 0.8216666666666667,
+                "y1_prop": 0.6968911917098446,
+                "w_prop": 0.16000000000000003,
+                "h_prop": 0.03626943005181349
+            },
+            "original_indices": [
+                17,
+                18
+            ],
+            "detect": "t",
+            "value": ""
+        },
+        {
+            "text": "30.05, '2012",
+            "box_props": {
+                "x0_prop": 0.3370945097562547,
+                "y0_prop": 0.6879872954333242,
+                "x1_prop": 0.4583333333333333,
+                "y1_prop": 0.7342924973127899,
+                "w_prop": 0.1212388235770786,
+                "h_prop": 0.04630520187946574
+            },
+            "original_indices": [
+                22,
+                19
+            ],
+            "detect": "f",
+            "value": "issuing"
+        },
+        {
+            "text": "30.12.2022",
+            "box_props": {
+                "x0_prop": 0.6616666666666666,
+                "y0_prop": 0.6917098445595855,
+                "x1_prop": 0.7783333333333333,
+                "y1_prop": 0.727979274611399,
+                "w_prop": 0.1166666666666667,
+                "h_prop": 0.03626943005181349
+            },
+            "original_indices": [
+                20
+            ],
+            "detect": "f",
+            "value": "expiry"
+        },
+        {
+            "text": "123456",
+            "box_props": {
+                "x0_prop": 0.7666666666666667,
+                "y0_prop": 0.7202072538860104,
+                "x1_prop": 0.9466666666666667,
+                "y1_prop": 0.7979274611398963,
+                "w_prop": 0.17999999999999994,
+                "h_prop": 0.07772020725388595
+            },
+            "original_indices": [
+                21
+            ],
+            "detect": "f",
+            "value": "can"
+        }
+    ]
+}

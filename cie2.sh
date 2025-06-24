@@ -1,5 +1,5 @@
-wget -c -q https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/CIE_%28fronte%29.jpg/960px-CIE_%28fronte%29.jpg
+wget -c -q https://img.corrierecomunicazioni.it/wp-content/uploads/2020/10/Italian_electronic_ID_card.jpg
 
-mv "960px-CIE_(fronte).jpg" cie2.jpg
+mv "Italian_electronic_ID_card.jpg" cie2.jpg
 
 python cie-to-json.py ./cie2.jpg

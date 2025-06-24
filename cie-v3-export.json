@@ -1,0 +1,482 @@
+{
+    "name": "CIE-3.0",
+    "image_width_px": 960,
+    "image_height_px": 610,
+    "merge_params": {
+        "MV_FACTOR": 0.5,
+        "MO_WORD_FACTOR": 0.7,
+        "MO_FIELD_FACTOR": 0.75,
+        "MO_COLUMN_FACTOR": 0.75,
+        "PROPORTIONAL_VERTICAL_OVERLAP_TOLERANCE": 0.01
+    },
+    "merged_boxes": [
+        {
+            "text": "REPUBBLICA ITALIANA",
+            "box_props": {
+                "x0_prop": 0.14479166666666668,
+                "y0_prop": 0.040983606557377046,
+                "x1_prop": 0.6260416666666667,
+                "y1_prop": 0.10983606557377049,
+                "w_prop": 0.48125000000000007,
+                "h_prop": 0.06885245901639345
+            },
+            "original_indices": [
+                0
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "CAOQOOOAA",
+            "box_props": {
+                "x0_prop": 0.753125,
+                "y0_prop": 0.047540983606557376,
+                "x1_prop": 0.9677083333333333,
+                "y1_prop": 0.11147540983606558,
+                "w_prop": 0.21458333333333324,
+                "h_prop": 0.0639344262295082
+            },
+            "original_indices": [
+                1
+            ],
+            "detect": "f",
+            "value": "cie_id"
+        },
+        {
+            "text": "MINISTERO DELLINTERNO",
+            "box_props": {
+                "x0_prop": 0.14895833333333333,
+                "y0_prop": 0.1,
+                "x1_prop": 0.5739583333333333,
+                "y1_prop": 0.15901639344262294,
+                "w_prop": 0.42500000000000004,
+                "h_prop": 0.05901639344262294
+            },
+            "original_indices": [
+                2
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "CARTA DI IDENTITÀ IDENTITY CARD",
+            "box_props": {
+                "x0_prop": 0.146875,
+                "y0_prop": 0.15081967213114755,
+                "x1_prop": 0.6,
+                "y1_prop": 0.21967213114754097,
+                "w_prop": 0.453125,
+                "h_prop": 0.06885245901639342
+            },
+            "original_indices": [
+                3,
+                4
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "COMUNE DI / MUNICIPALITY",
+            "box_props": {
+                "x0_prop": 0.14791666666666667,
+                "y0_prop": 0.2098360655737705,
+                "x1_prop": 0.36770833333333336,
+                "y1_prop": 0.2442622950819672,
+                "w_prop": 0.2197916666666667,
+                "h_prop": 0.03442622950819671
+            },
+            "original_indices": [
+                5,
+                6
+            ],
+            "detect": "t",
+            "value": "municipality"
+        },
+        {
+            "text": "SERENELLA MARITTIMA",
+            "box_props": {
+                "x0_prop": 0.14583333333333334,
+                "y0_prop": 0.24098360655737705,
+                "x1_prop": 0.3927083333333333,
+                "y1_prop": 0.2819672131147541,
+                "w_prop": 0.24687499999999998,
+                "h_prop": 0.04098360655737704
+            },
+            "original_indices": [
+                7
+            ],
+            "detect": "f",
+            "value": "municipality"
+        },
+        {
+            "text": "|",
+            "box_props": {
+                "x0_prop": 0.028125,
+                "y0_prop": 0.27704918032786885,
+                "x1_prop": 0.04479166666666667,
+                "y1_prop": 0.5491803278688525,
+                "w_prop": 0.016666666666666666,
+                "h_prop": 0.27213114754098366
+            },
+            "original_indices": [
+                12
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "COGNOME / SURNAME",
+            "box_props": {
+                "x0_prop": 0.325,
+                "y0_prop": 0.29180327868852457,
+                "x1_prop": 0.5041666666666667,
+                "y1_prop": 0.32459016393442625,
+                "w_prop": 0.17916666666666664,
+                "h_prop": 0.032786885245901676
+            },
+            "original_indices": [
+                8
+            ],
+            "detect": "t",
+            "value": "surname"
+        },
+        {
+            "text": "ROSSI",
+            "box_props": {
+                "x0_prop": 0.325,
+                "y0_prop": 0.32131147540983607,
+                "x1_prop": 0.39375,
+                "y1_prop": 0.36065573770491804,
+                "w_prop": 0.06874999999999998,
+                "h_prop": 0.03934426229508198
+            },
+            "original_indices": [
+                9
+            ],
+            "detect": "f",
+            "value": "surname"
+        },
+        {
+            "text": "NOME / NAME",
+            "box_props": {
+                "x0_prop": 0.3260416666666667,
+                "y0_prop": 0.3721311475409836,
+                "x1_prop": 0.4427083333333333,
+                "y1_prop": 0.40491803278688526,
+                "w_prop": 0.11666666666666664,
+                "h_prop": 0.032786885245901676
+            },
+            "original_indices": [
+                10,
+                11
+            ],
+            "detect": "t",
+            "value": "name"
+        },
+        {
+            "text": "PLACE AID DATE OF BIRTH",
+            "box_props": {
+                "x0_prop": 0.328125,
+                "y0_prop": 0.4737704918032787,
+                "x1_prop": 0.5364583333333334,
+                "y1_prop": 0.5065573770491804,
+                "w_prop": 0.20833333333333337,
+                "h_prop": 0.032786885245901676
+            },
+            "original_indices": [
+                13
+            ],
+            "detect": "t",
+            "value": "place_and_date_of_birth"
+        },
+        {
+            "text": "nO SULLA SPONDA DEL LAGS MAGGIORE (VA) 30.12.1964",
+            "box_props": {
+                "x0_prop": 0.3458333333333333,
+                "y0_prop": 0.49508196721311476,
+                "x1_prop": 0.9229166666666667,
+                "y1_prop": 0.5409836065573771,
+                "w_prop": 0.5770833333333334,
+                "h_prop": 0.045901639344262335
+            },
+            "original_indices": [
+                14
+            ],
+            "detect": "f",
+            "value": "place_and_date_of_birth"
+        },
+        {
+            "text": "ES",
+            "box_props": {
+                "x0_prop": 0.33541666666666664,
+                "y0_prop": 0.5442622950819672,
+                "x1_prop": 0.3625,
+                "y1_prop": 0.5836065573770491,
+                "w_prop": 0.027083333333333348,
+                "h_prop": 0.03934426229508192
+            },
+            "original_indices": [
+                15
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "STATURI",
+            "box_props": {
+                "x0_prop": 0.478125,
+                "y0_prop": 0.5459016393442623,
+                "x1_prop": 0.5447916666666667,
+                "y1_prop": 0.578688524590164,
+                "w_prop": 0.06666666666666665,
+                "h_prop": 0.032786885245901676
+            },
+            "original_indices": [
+                16
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "CITTADINANZA",
+            "box_props": {
+                "x0_prop": 0.6489583333333333,
+                "y0_prop": 0.5459016393442623,
+                "x1_prop": 0.7739583333333333,
+                "y1_prop": 0.578688524590164,
+                "w_prop": 0.125,
+                "h_prop": 0.032786885245901676
+            },
+            "original_indices": [
+                17
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "heigh",
+            "box_props": {
+                "x0_prop": 0.47708333333333336,
+                "y0_prop": 0.5704918032786885,
+                "x1_prop": 0.5291666666666667,
+                "y1_prop": 0.6098360655737705,
+                "w_prop": 0.052083333333333315,
+                "h_prop": 0.03934426229508192
+            },
+            "original_indices": [
+                19
+            ],
+            "detect": "t",
+            "value": "heigh"
+        },
+        {
+            "text": "SEX",
+            "box_props": {
+                "x0_prop": 0.3260416666666667,
+                "y0_prop": 0.5721311475409836,
+                "x1_prop": 0.359375,
+                "y1_prop": 0.6049180327868853,
+                "w_prop": 0.033333333333333326,
+                "h_prop": 0.032786885245901676
+            },
+            "original_indices": [
+                18
+            ],
+            "detect": "t",
+            "value": "sex"
+        },
+        {
+            "text": "NATIONALITY",
+            "box_props": {
+                "x0_prop": 0.6510416666666666,
+                "y0_prop": 0.5754098360655737,
+                "x1_prop": 0.7572916666666667,
+                "y1_prop": 0.6081967213114754,
+                "w_prop": 0.10625000000000007,
+                "h_prop": 0.032786885245901676
+            },
+            "original_indices": [
+                20
+            ],
+            "detect": "t",
+            "value": "nationality"
+        },
+        {
+            "text": "180",
+            "box_props": {
+                "x0_prop": 0.47708333333333336,
+                "y0_prop": 0.6032786885245902,
+                "x1_prop": 0.5208333333333334,
+                "y1_prop": 0.6426229508196721,
+                "w_prop": 0.04375000000000001,
+                "h_prop": 0.03934426229508192
+            },
+            "original_indices": [
+                21
+            ],
+            "detect": "f",
+            "value": "haight"
+        },
+        {
+            "text": "ITA",
+            "box_props": {
+                "x0_prop": 0.6489583333333333,
+                "y0_prop": 0.6049180327868853,
+                "x1_prop": 0.6864583333333333,
+                "y1_prop": 0.6377049180327868,
+                "w_prop": 0.03749999999999998,
+                "h_prop": 0.032786885245901565
+            },
+            "original_indices": [
+                22
+            ],
+            "detect": "f",
+            "value": "nationality"
+        },
+        {
+            "text": "EMISSIQNE / ISSUING",
+            "box_props": {
+                "x0_prop": 0.325,
+                "y0_prop": 0.6459016393442623,
+                "x1_prop": 0.4979166666666667,
+                "y1_prop": 0.6852459016393443,
+                "w_prop": 0.17291666666666666,
+                "h_prop": 0.03934426229508203
+            },
+            "original_indices": [
+                23
+            ],
+            "detect": "t",
+            "value": "issuing"
+        },
+        {
+            "text": "SCADENZA / EXPIRY",
+            "box_props": {
+                "x0_prop": 0.6510416666666666,
+                "y0_prop": 0.6475409836065574,
+                "x1_prop": 0.8114583333333333,
+                "y1_prop": 0.680327868852459,
+                "w_prop": 0.16041666666666665,
+                "h_prop": 0.032786885245901565
+            },
+            "original_indices": [
+                24,
+                25
+            ],
+            "detect": "f",
+            "value": "expiry"
+        },
+        {
+            "text": "30.05.2022",
+            "box_props": {
+                "x0_prop": 0.325,
+                "y0_prop": 0.6754098360655738,
+                "x1_prop": 0.44583333333333336,
+                "y1_prop": 0.7180327868852459,
+                "w_prop": 0.12083333333333335,
+                "h_prop": 0.042622950819672045
+            },
+            "original_indices": [
+                26
+            ],
+            "detect": "f",
+            "value": "issuing"
+        },
+        {
+            "text": "30.12.2031",
+            "box_props": {
+                "x0_prop": 0.65,
+                "y0_prop": 0.6754098360655738,
+                "x1_prop": 0.7708333333333334,
+                "y1_prop": 0.7147540983606557,
+                "w_prop": 0.12083333333333335,
+                "h_prop": 0.03934426229508192
+            },
+            "original_indices": [
+                27
+            ],
+            "detect": "f",
+            "value": "expiry"
+        },
+        {
+            "text": "IT",
+            "box_props": {
+                "x0_prop": 0.8447916666666667,
+                "y0_prop": 0.6770491803278689,
+                "x1_prop": 0.9260416666666667,
+                "y1_prop": 0.7885245901639344,
+                "w_prop": 0.08124999999999993,
+                "h_prop": 0.11147540983606552
+            },
+            "original_indices": [
+                29
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "FIRMA DEL TITOLARE",
+            "box_props": {
+                "x0_prop": 0.3260416666666667,
+                "y0_prop": 0.7262295081967213,
+                "x1_prop": 0.5010416666666667,
+                "y1_prop": 0.759016393442623,
+                "w_prop": 0.17500000000000004,
+                "h_prop": 0.032786885245901676
+            },
+            "original_indices": [
+                28
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "HOLDER'S SIGNATURE",
+            "box_props": {
+                "x0_prop": 0.328125,
+                "y0_prop": 0.7524590163934426,
+                "x1_prop": 0.496875,
+                "y1_prop": 0.7852459016393443,
+                "w_prop": 0.16875,
+                "h_prop": 0.032786885245901676
+            },
+            "original_indices": [
+                30
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "Siscabe",
+            "box_props": {
+                "x0_prop": 0.32708333333333334,
+                "y0_prop": 0.7852459016393443,
+                "x1_prop": 0.5614583333333333,
+                "y1_prop": 0.9360655737704918,
+                "w_prop": 0.23437499999999994,
+                "h_prop": 0.15081967213114755
+            },
+            "original_indices": [
+                31
+            ],
+            "detect": "f",
+            "value": ""
+        },
+        {
+            "text": "123456",
+            "box_props": {
+                "x0_prop": 0.753125,
+                "y0_prop": 0.7983606557377049,
+                "x1_prop": 0.9260416666666667,
+                "y1_prop": 0.8672131147540983,
+                "w_prop": 0.1729166666666666,
+                "h_prop": 0.06885245901639347
+            },
+            "original_indices": [
+                32
+            ],
+            "detect": "f",
+            "value": "can"
+        }
+    ]
+}
